@@ -47,12 +47,32 @@ app.get('/form/:name', async (request, response) => {
     try {
         console.log(getInfo)
         const form = await Form.find({ name: getInfo.name });
-        console.log(form)
-        return response.json(form);
+        console.log(form[0])
+        return response.json(form[0]);
     } catch (error) {
         console.log(error)
         return response.status(500).json({ message: "Internal server error." });
     }
 });
+
+app.post('/form/:name', async (request, response) => {
+
+    const submission = {
+        formData: request.body.formData,
+        name: request.params.name
+    };
+
+    try {
+        let form = await Form.find({ name: submission.name });
+        // console.log(form[0]);
+        // return;
+        form[0].submissions.push({ ...submission.formData, date: Date.now() });
+        await form[0].save();
+        return response.json(form[0]);
+    } catch (error) {
+        console.log(error)
+        return response.status(500).json({ message: "Internal server error." });
+    }
+})
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

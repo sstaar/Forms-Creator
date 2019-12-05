@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { DisplayInput } from './DisplayInput';
 import Axios from 'axios';
 
-
 export const CreateForm = () => {
     const [forms, setForms] = useState([]);
 
