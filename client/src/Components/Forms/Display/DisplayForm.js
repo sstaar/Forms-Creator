@@ -23,23 +23,25 @@ export const DisplayForm = ({ match }) => {
 
     let [formStructure, setFormStructure] = useState([]);
 
-    let [formData, setFormData] = useState({});
+    let [formData, setFormData] = useState({
+        response: {},
+    });
 
     useEffect(() => {
         const request = async () => {
-            const response = await Axios.get(`http://localhost:5000/form/${match.params.name}`);
+            const response = await Axios.get(`http://localhost:5000/api/form/${match.params.name}`);
             console.log(response)
-            setFormStructure(response.data.structure);
+            setFormStructure(response.data);
         };
         request();
     }, [match.params.name])
 
-    console.log(formStructure);
+    console.log(formData);
 
     const submit = async () => {
         console.log(formData)
-        const response = await Axios.post(`http://localhost:5000/form/${match.params.name}`, { formData });
-        console.log(response.data);
+        const response = await Axios.put(`http://localhost:5000/api/form/${match.params.name}`, { formData });
+        setFormData({ ...formData, response: response.data });
     };
 
     const handleChange = (event) => {
@@ -58,6 +60,7 @@ export const DisplayForm = ({ match }) => {
                                 inputType={input.type}
                                 description={input.description}
                                 label={input.label}
+                                error={formData.response.errors ? formData.response.errors[input.name] : null}
                             />
                         </div>
                     )

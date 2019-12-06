@@ -1,11 +1,11 @@
 var mongoose = require('mongoose');
 
 const inputSchema = mongoose.Schema({
-    name: { type: String, required: true, unique: true },
+    name: { type: String, required: true },
     type: { type: String, required: true },
     label: { type: String, required: true },
     description: { type: String },
-    required: { type: Boolean, required: true },
+    required: { type: Boolean, required: true, default: false },
 });
 
 const formSchema = mongoose.Schema({

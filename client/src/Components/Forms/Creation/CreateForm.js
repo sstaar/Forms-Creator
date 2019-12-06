@@ -35,7 +35,7 @@ export const CreateForm = () => {
     }
 
     const creatForm = async () => {
-        const response = await Axios.post('http://localhost:5000/form', { structure: forms, name: Date.now() });
+        const response = await Axios.post('http://localhost:5000/api/form', { structure: forms, name: Date.now() });
         console.log(response);
     }
 

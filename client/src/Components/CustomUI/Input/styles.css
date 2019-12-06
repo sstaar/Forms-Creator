@@ -1,3 +1,9 @@
+:root {
+    --error-color:rgb(255, 73, 73);
+    --normal-color:#5fa8d3;
+    --success-color:green
+}
+
 .input-holder {
     width: 90%;
     position: relative;
@@ -16,6 +22,7 @@
     outline: none;
 }
 
+/* Normal styling */
 .label {
     position: absolute;
     bottom: 30px;
@@ -31,7 +38,7 @@
     position: absolute;
     height: 100%;
     width: 100%;
-    border-bottom: 3px solid #5fa8d3;
+    border-bottom: 3px solid var(--normal-color);
     left: 0;
     bottom: 29;
     transform: translateX(-100%);
@@ -49,13 +56,67 @@
 .input:valid + .label .label-name {
     transform: translateY(-150%);
     font-size: 14px;
-    color: #5fa8d3;
+    color: var(--normal-color);
 }
 
 .input:focus + .label::after,
 .input:valid + .label::after{
     transform: translateX(0);
 }
+/* End of normal styling */
+
+/* Error Styling */
+.label-error {
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    border-bottom: 1px solid var(--error-color);
+}
+
+.label-error::after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    border-bottom: 3px solid var(--error-color);
+    left: 0;
+    bottom: 29;
+    transform: translateX(-100%);
+    transition: all 0.3s ease;
+}
+
+.label-name-error {
+    position: absolute;
+    bottom: 2px;
+    left: 2px;
+    color:var(--error-color);
+    transition: all 0.3s ease;
+}
+
+.input:focus + .label-error .label-name-error,
+.input:valid + .label-error .label-name-error {
+    transform: translateY(-150%);
+    font-size: 14px;
+    color: var(--error-color);
+}
+
+.input:focus + .label-error::after,
+.input:valid + .label-error::after{
+    transform: translateX(0);
+}
+
+.description-error {
+    position: absolute;
+    left: 2px;
+    bottom: 10px;
+    font-size: 12px;
+    opacity: .5;
+    color: var(--error-color);
+}
+/* End of error styling */
 
 .description {
     position: absolute;
