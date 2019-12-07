@@ -9,17 +9,14 @@ module.exports = async (request, response, next) => {
     });
 
     try {
-        let data = await dataSchema.validateAsync(request.body, { abortEarly: false });
+        await dataSchema.validateAsync(request.body, { abortEarly: false });
         passport.authenticate('local', async (error, user, info) => {
-            if (error) {
-                console.log(error)
-                return response.status(500).json({ errors: 'Internal server error.' });
-            }
-            if (!user) {
-                console.log(info);
+            if (error)
+                return response.status(500).json({ error: 'Internal server error.' });
+            if (!user)
                 return response.json({ errors: { username: info.message, password: info.message } });
-            }
-            return response.json({ token: await user.generateJWT() });
+            let token = await user.generateJWT();
+            return response.cookie('token', token, { httpOnly: true }).json({ success: "You are now logged in." });
         })(request, response, next)
     } catch (error) {
         console.log(error);

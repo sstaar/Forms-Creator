@@ -16,7 +16,7 @@ userSchema.methods.generateJWT = async function () {
         // expiresIn: '2d'
     };
     const payload = { user: this._id };
-    return await jwt.sign(payload, /*process.env.JWT_SECRET*/ "GALATA", options);
+    return await jwt.sign(payload, process.env.JWT_SECRET || "GALATA", options);
 };
 
 const User = mongoose.model('User', userSchema);

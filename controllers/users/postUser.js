@@ -6,7 +6,7 @@ module.exports = async (request, response) => {
 
     let dataSchema = Joi.object({
         username: Joi.string().alphanum().min(4).max(30).required(),
-        password: Joi.string().pattern(/^[a-zA-Z0-9]{3,30}$/).required(),
+        password: Joi.string().pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,50})/).required(),
     });
 
     try {

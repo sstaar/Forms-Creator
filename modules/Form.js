@@ -10,6 +10,7 @@ const inputSchema = mongoose.Schema({
 
 const formSchema = mongoose.Schema({
     name: { type: String, required: true, unique: true },
+    user: mongoose.Schema.ObjectId,
     structure: [inputSchema],
     submissions: []
 });

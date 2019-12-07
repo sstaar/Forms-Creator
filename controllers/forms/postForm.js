@@ -1,4 +1,5 @@
 const formServices = require('../../services/forms');
+const Form = require('../../modules/Form');
 
 module.exports = async (request, response) => {
     const postInfo = {
@@ -7,7 +8,8 @@ module.exports = async (request, response) => {
     }
 
     try {
-        const form = await formServices.createForm(postInfo.name, postInfo.structure);
+        const form = new Form({ name: postInfo.name, structure: postInfo.structure, user: request.user });
+        await form.save();
         return response.json(form);
     } catch (error) {
         console.log(error)
