@@ -1,0 +1,42 @@
+.form-creator-holder {
+    
+    width: 40%;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 1rem;
+    border: solid 1px #eeeeee;
+    background-color: #ffffff;
+    padding: 1%;
+}
+
+.form-creator-item {
+    margin: .1rem auto;
+    width: 90%;
+}
+
+.form-creator-double {
+    margin: .1rem auto;
+    margin-bottom: 1rem;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.bts {
+    display: flex;
+    width: 40%;
+    margin: 1rem auto;
+    justify-content: space-between;
+}
+
+.title {
+    width: 40%;
+    padding: 1%;
+    min-width: 200px;
+    margin: auto;
+    margin-top: 1rem;
+    border: solid 1px #eeeeee;
+    background-color: #ffffff;
+}

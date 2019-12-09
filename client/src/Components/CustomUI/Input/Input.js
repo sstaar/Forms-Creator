@@ -10,7 +10,6 @@ export const Input = ({
     inputType,
     error
 }) => {
-    console.log(error)
     return (
         <div className="input-holder">
             <input type={inputType} onChange={handleChange} name={name} value={value} required className="input" />

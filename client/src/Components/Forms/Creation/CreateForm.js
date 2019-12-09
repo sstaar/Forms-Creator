@@ -1,82 +1,91 @@
 import React, { useState } from 'react';
 import { DisplayInput } from './DisplayInput';
 import Axios from 'axios';
+import { CheckBox } from '../../CustomUI/checkBox/CheckBox';
+import { Select } from '../../CustomUI/select/Select';
+import { Input } from '../../CustomUI/Input/Input';
+import { Button } from '../../CustomUI/button/Button';
+import './form.css';
+import { CreateInput } from './CreateInput';
+import { array } from 'prop-types';
 
 export const CreateForm = () => {
-    const [forms, setForms] = useState([]);
-
-    const [input, setInput] = useState({
+    const [inputs, setInputs] = useState([{
         name: '',
-        type: '',
+        type: 'text',
         label: '',
         description: '',
         required: false,
-        id: Date.now()
-    });
+    }]);
 
-    const handleTextChange = (event) => {
-        setInput({ ...input, [event.target.name]: event.target.value });
-    }
-
-    const handleRequiredChange = (e) => {
-        setInput({ ...input, required: !input.required })
-    }
+    const [title, setTitle] = useState('');
 
     const addInput = () => {
-        setForms([...forms, input]);
-        setInput({
+        setInputs([...inputs, {
             name: '',
-            type: '',
+            type: 'text',
             label: '',
             description: '',
             required: false,
-            id: Date.now()
-        })
+        }])
+    };
+
+
+    const handleTextChange = (event, inputKey) => {
+        let newInputs = inputs.map((input, key) => {
+            if (key === inputKey)
+                input = { ...input, [event.target.name]: event.target.value };
+            return input
+        });
+        setInputs(newInputs);
     }
+
+    const handleRequiredChange = (inputKey) => {
+        let newInputs = inputs.map((input, key) => {
+            if (key === inputKey)
+                input = { ...input, required: !input.required };
+            return input
+        });
+        setInputs(newInputs);
+    };
+
+    console.log(inputs);
 
     const creatForm = async () => {
-        const response = await Axios.post('/api/form', { structure: forms, name: Date.now() });
+        const response = await Axios.post('/api/form', { structure: inputs, name: title });
         console.log(response);
-    }
+    };
 
-    console.log(forms);
-    console.log(input);
+    const titleChange = (event) => {
+        setTitle(event.target.value);
+    }
 
     return (
         <div>
-            {forms.map(item => <DisplayInput key={item.id} input={item} />)}
-            <div>
-                Name:
-                <input
-                    name="name"
-                    value={input.name}
-                    onChange={handleTextChange}
+            <div className="title" >
+                <Input
+                    handleChange={titleChange}
+                    value={title}
+                    name={"title"}
+                    inputType={"text"}
+                    label={"Your form name"}
+                    error={null}
                 />
-
-                Label
-                <input
-                    name="label"
-                    value={input.label}
-                    onChange={handleTextChange}
-                />
-
-                Description
-                <input
-                    name="description"
-                    value={input.description}
-                    onChange={handleTextChange}
-                />
-
-                <select name="type" value={input.type} onChange={handleTextChange}>
-                    <option value="mail">Mail</option>
-                    <option value="text">Text</option>
-                </select>
-
-                <input type="checkbox" value="Required" onClick={handleRequiredChange} />
-
-                <button onClick={addInput} >Add Input </button>
             </div>
-            <button onClick={creatForm} >Create Form</button>
+            {inputs.map((input, index) =>
+                <CreateInput
+                    key={index}
+                    index={index}
+                    input={input}
+                    handleTextChange={handleTextChange}
+                    handleRequiredChange={handleRequiredChange}
+                />
+            )}
+            <div className="bts">
+                <Button handleClick={addInput} label={"Add field"} />
+                <Button handleClick={creatForm} label="Create Form" />
+            </div>
+
         </div>
     )
 }

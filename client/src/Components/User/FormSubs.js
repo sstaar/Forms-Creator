@@ -21,6 +21,7 @@ export const FormSubs = ({ match }) => {
         return (<div>loading</div>);
     if (formStore.submissions.length === 0)
         return (<div>No subs</div>);
+
     return (
         <div>
             {formStore.structure.map(input =>

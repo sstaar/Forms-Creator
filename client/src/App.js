@@ -3,7 +3,6 @@ import './App.css';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 
-
 import store from "./store";
 
 import { ConnectedRoute } from './Components/HelperComponents/ConnectedRoute';
@@ -12,10 +11,8 @@ import { CreateForm } from './Components/Forms/Creation/CreateForm';
 import { DisplayForm } from './Components/Forms/Display/DisplayForm';
 import { Register } from './Components/Auth/Register';
 import { Login } from './Components/Auth/Login';
-import { Home } from './Components/User/Home';
 import { FormSubs } from './Components/User/FormSubs';
-
-
+import { Home } from './Components/User/Home';
 
 function App() {
   return (

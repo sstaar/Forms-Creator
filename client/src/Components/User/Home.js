@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserForms } from '../../actions/formActions';
+import { CheckBox } from '../CustomUI/checkBox/CheckBox';
+import { Select } from '../CustomUI/select/Select';
+import { Link } from 'react-router-dom';
 
 export const Home = () => {
 
@@ -16,12 +19,14 @@ export const Home = () => {
     }, [dispatch]);
 
     if (formsStore.loading === true)
-        return (<div>loading</div>)
+        return (<div>
+        </div>)
     return (
         <div>
             {formsStore.forms.map(form =>
                 <div key={form._id}>
-                    {form.name}
+                    <Link to={`/user/form/${form.name}`} >{form.name}</Link>
+
                 </div>
             )}
         </div>
