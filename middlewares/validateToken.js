@@ -8,7 +8,7 @@ module.exports = async (request, res, next) => {
     // return res.json( request.body);
     let result;
     if (cookies) {
-        const token = authorizationBody.token; // Bearer <token>
+        const token = cookies.token; // Bearer <token>
         const options = {
             expiresIn: '2d'
         };
@@ -19,7 +19,7 @@ module.exports = async (request, res, next) => {
             // Let's pass back the decoded token to the request object.
             const user = await User.findById(result.user);
             if (!user)
-                return res.json({ error: `Authentication error.basel...` })
+                return res.json({ error: `Authentication error.basel...` });
             request.user = result.user;
             // We call next to pass execution to the subsequent middleware.
             return next();

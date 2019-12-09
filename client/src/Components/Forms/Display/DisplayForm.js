@@ -29,7 +29,7 @@ export const DisplayForm = ({ match }) => {
 
     useEffect(() => {
         const request = async () => {
-            const response = await Axios.get(`http://localhost:5000/api/form/${match.params.name}`);
+            const response = await Axios.get(`/api/form/${match.params.name}`);
             console.log(response)
             setFormStructure(response.data);
         };
@@ -40,7 +40,7 @@ export const DisplayForm = ({ match }) => {
 
     const submit = async () => {
         console.log(formData)
-        const response = await Axios.put(`http://localhost:5000/api/form/${match.params.name}`, { formData });
+        const response = await Axios.put(`/api/form/${match.params.name}`, { formData });
         setFormData({ ...formData, response: response.data });
     };
 

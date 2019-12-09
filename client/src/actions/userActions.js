@@ -19,7 +19,7 @@ export const login = async (loginInfo) => {
     }
 
     try {
-        let response = await Axios.post('/api/user/login', loginInfo);
+        let response = await Axios.post(`/api/user/login`, loginInfo);
         response = response.data;
         if (response.success)
             return {
