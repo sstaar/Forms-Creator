@@ -1,4 +1,4 @@
-import { USER_LOGIN_FAIL, USER_LOGIN_SUCCESS } from './types';
+import { USER_LOGIN_FAIL, USER_LOGIN_SUCCESS, USER_LOGOUT_SUCCESS, USER_LOGOUT_FAIL } from './types';
 import Axios from 'axios';
 
 //In case of login success we send a token and the username
@@ -36,5 +36,21 @@ export const login = async (loginInfo) => {
             type: USER_LOGIN_FAIL,
             payload: { errors: { general: "SERVER ERROR." } }
         };
+    }
+};
+
+export const logout = async () => {
+
+    try {
+        await Axios.delete(`/api/user/logout`);
+        console.log('asasas')
+
+        return {
+            type: USER_LOGOUT_SUCCESS
+        }
+    } catch (error) {
+        return {
+            type: USER_LOGOUT_FAIL
+        }
     }
 };

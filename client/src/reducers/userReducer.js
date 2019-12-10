@@ -1,4 +1,4 @@
-import { USER_LOGIN_SUCCESS, USER_LOGIN_FAIL } from "../actions/types";
+import { USER_LOGIN_SUCCESS, USER_LOGIN_FAIL, USER_LOGOUT_SUCCESS } from "../actions/types";
 
 //Pulling the informations from the local storage
 //In the user browser and initiating the redux store with it
@@ -27,6 +27,14 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 errors: action.payload
+            };
+        case USER_LOGOUT_SUCCESS:
+            console.log('asasas');
+            localStorage.setItem("connected", false);
+            return {
+                connected: false,
+                errors: {},
+                success: null,
             }
         default:
             return state;

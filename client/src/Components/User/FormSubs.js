@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserForm } from '../../actions/formActions';
+import { Button } from '../CustomUI/button/Button'
+import { Spinner } from '../CustomUI/spinner/Spinner';
 
 export const FormSubs = ({ match }) => {
 
@@ -17,16 +19,37 @@ export const FormSubs = ({ match }) => {
         dispatcher();
     }, [dispatch, match.params.name]);
 
+    const handleNext = () => {
+        if (subIndex + 1 === formStore.submissions.length)
+            return setSubIndex(0)
+        setSubIndex(subIndex + 1)
+    };
+
+    const handlePrevious = () => {
+        if (subIndex === 0)
+            return setSubIndex(formStore.submissions.length - 1)
+        setSubIndex(subIndex - 1)
+    };
+
     if (formStore.loading === true)
-        return (<div>loading</div>);
+        return (<Spinner />);
     if (formStore.submissions.length === 0)
-        return (<div>No subs</div>);
+        return (<div className="no-subs">This form has no subs yet</div>);
 
     return (
-        <div>
+        <div className="subs-holder">
+            <div className="bts-holder">
+                <Button label="Previous" handleClick={handlePrevious} />
+                <div className="index-holder" >
+                    {subIndex + 1}
+                    /
+                    {formStore.submissions.length}
+                </div>
+                <Button label="Next" handleClick={handleNext} />
+            </div>
             {formStore.structure.map(input =>
-                <div>
-                    {`${input.name} : ` + formStore.submissions[subIndex][input.name]}
+                <div key={input.name} className="sub">
+                    <span className="input-label">{`${input.name} `}</span> <span className="input-value"> {formStore.submissions[subIndex][input.name]} </span>
                 </div>
             )}
         </div>

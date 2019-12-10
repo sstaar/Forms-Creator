@@ -13,11 +13,13 @@ import { Register } from './Components/Auth/Register';
 import { Login } from './Components/Auth/Login';
 import { FormSubs } from './Components/User/FormSubs';
 import { Home } from './Components/User/Home';
+import { NavBar } from './Components/Nav/NavBar';
 
 function App() {
   return (
     <Provider store={store}>
       <Router>
+        <NavBar />
         <Switch>
           <Route exact path="/form/:name" component={DisplayForm} />
           <NotConnectedRoute exact path='/register' component={Register} />
