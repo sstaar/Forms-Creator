@@ -1,5 +1,5 @@
-const formServices = require('../../services/forms');
 const sv = require('../../helpers/formValidators/schemaValidator');
+const Form = require('../../models/Form');
 
 module.exports = async (request, response) => {
 
@@ -9,10 +9,10 @@ module.exports = async (request, response) => {
     };
 
     try {
-        let form = await formServices.getFormByName(submission.name);
+        let form = await Form.findOne({ name: submission.name });
         let sub = await sv(form.structure, submission.formData);
-        console.log(sub);
-        form = await formServices.addSubmissionToForm(form, sub);
+        form.submissions.push({ ...sub, date: Date.now() });
+        await form.save();
         return response.json(form);
     } catch (error) {
         console.log(error)
