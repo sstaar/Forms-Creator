@@ -11,7 +11,6 @@ import { array } from 'prop-types';
 
 export const CreateForm = () => {
     const [inputs, setInputs] = useState([{
-        name: '',
         type: 'text',
         label: '',
         description: '',
@@ -20,9 +19,13 @@ export const CreateForm = () => {
 
     const [title, setTitle] = useState('');
 
+    const [response, setResponse] = useState({
+        success: null,
+        errors: {}
+    })
+
     const addInput = () => {
         setInputs([...inputs, {
-            name: '',
             type: 'text',
             label: '',
             description: '',
@@ -49,10 +52,15 @@ export const CreateForm = () => {
         setInputs(newInputs);
     };
 
-    console.log(inputs);
-
     const creatForm = async () => {
-        const response = await Axios.post('/api/form', { structure: inputs, name: title });
+        try {
+            const response = await Axios.post('/api/form', { structure: inputs, name: title });
+            if (response.data.URL)
+                return setResponse({ ...response, success: response.data.URL });
+            return setResponse({ ...response, errors: { general: 'SERVER ERROR' } })
+        } catch (error) {
+
+        }
         console.log(response);
     };
 
@@ -60,6 +68,12 @@ export const CreateForm = () => {
         setTitle(event.target.value);
     }
 
+    if (response.success)
+        return (
+            <div className="success">
+                {response.success}
+            </div>
+        )
     return (
         <div>
             <div className="title" >
@@ -69,6 +83,7 @@ export const CreateForm = () => {
                     name={"title"}
                     inputType={"text"}
                     label={"Your form name"}
+                    description={"Your form name must be unique"}
                     error={null}
                 />
             </div>

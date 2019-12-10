@@ -1,4 +1,4 @@
-const User = require('../modules/User');
+const User = require('../models/User');
 
 const findUserByUsername = async (username) => {
     let user = await User.find({ username: username });

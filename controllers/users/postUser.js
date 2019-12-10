@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs')
 const Joi = require('@hapi/joi');
-const User = require('../../modules/User');
+const User = require('../../models/User');
 
 module.exports = async (request, response) => {
 

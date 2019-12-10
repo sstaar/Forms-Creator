@@ -1,10 +1,10 @@
-const Form = require('../../modules/Form');
+const Form = require('../../models/Form');
 const Joi = require('@hapi/joi');
+const uuidv4 = require('uuid/v4');
 
 module.exports = async (request, response) => {
 
     let data = Joi.object().keys({
-        name: Joi.string().alphanum().min(4).max(30).required(),
         type: Joi.string().valid('mail', 'text').required(),
         label: Joi.string().alphanum().min(4).max(30).required(),
         description: Joi.string().alphanum().min(4).max(100),
@@ -19,16 +19,16 @@ module.exports = async (request, response) => {
     }
 
     try {
-        console.log(postInfo.structure)
         await dataSchema.validateAsync(postInfo.structure);
         if (await Form.findOne({ name: postInfo.name }))
             return response.json({ errors: { name: "Name already exists" } });
         const form = new Form({ name: postInfo.name, user: request.user });
         postInfo.structure.forEach(input => {
-            form.structure.push(input)
+            form.structure.push({ ...input, name: uuidv4() });
         })
         await form.save();
-        return response.json(form);
+        console.log(form)
+        return response.json({ form, URL: `localhost:3000/form/${form.name}` });
     } catch (error) {
         console.log(error)
         if (error.details)

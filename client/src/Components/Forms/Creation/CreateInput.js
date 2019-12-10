@@ -16,18 +16,6 @@ export const CreateInput = ({ input, index, handleTextChange, handleRequiredChan
 
     return (
         <div className="form-creator-holder" key={index}>
-            {/* {forms.map(item => <DisplayInput key={item.id} input={item} />)} */}
-            <div className="form-creator-item">
-                <Input
-                    handleChange={localTextChange}
-                    value={input.name}
-                    name={"name"}
-                    inputType={"text"}
-                    label={"Name"}
-                    error={null}
-                />
-            </div>
-
             <div className="form-creator-item">
                 <Input
                     handleChange={localTextChange}

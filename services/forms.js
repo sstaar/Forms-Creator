@@ -1,4 +1,4 @@
-const Form = require('../modules/Form');
+const Form = require('../models/Form');
 
 const createForm = async (formName, formStructure) => {
     const form = await new Form({ name: formName, structure: formStructure });
