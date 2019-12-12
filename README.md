@@ -1,5 +1,5 @@
 # Forms-Creator
-###This project is still under development 
+###This project is still under development### 
 
 
 A simple forms creator
@@ -13,7 +13,7 @@ Mongodb is required to start the project
 
 To change the URL which the Fron't end sends requests to, change the proxy in the client/package.json to the desired URL
 
-Excuse the desgin i will be working on it more
+The design is still in progress.
 
 For any suggestions please don't hesitate to contact me
 E-Mail: **elbouazizihamza@gmail.com**
